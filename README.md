@@ -43,7 +43,15 @@ My startup scripts are rather verbose and should be able to be run at any time o
 
 Second, always check OpenVPN logs in `/var/log/openvpn`. In case of failure, you should also try to increase OpenVPN verbosity to at least verb 5 in the local OpenVPN .conf
 
-Check whether ifconfig reports the tun-Devices and whether the counters show any traffic.
+Check whether `ifconfig` reports the tun-Devices and whether the counters show any traffic. Sample output:
+
+```tun47     Link encap:UNSPEC  HWaddr 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+          inet addr:10.0.147.1  P-t-P:10.0.147.1  Mask:255.255.255.0
+          UP POINTOPOINT RUNNING NOARP PROMISC MULTICAST  MTU:1500  Metric:1
+          RX packets:9033859 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:10611082 errors:0 dropped:17 overruns:0 carrier:0
+          collisions:0 txqueuelen:100
+          RX bytes:1566611815 (1.4 GiB)  TX bytes:4453247032 (4.1 GiB)```
 
 # Speed
 I've set up an [iperf3](https://iperf.fr) server on UNIFI-CONTROLLER and run hourly speed tests initiated by `iperf3` clients on OPENVPN17 and OPENVPN47. I then move the JSON output to another Linux server in my network, parse the data, import it into [cacti](http://www.cacti.net) and plot the values using this software. As you can see in the images below, a) the throughput is generally steady (don't ask me what happened at 4am on Friday, October 21) and b) the upload speed is visibly capped by [upc cablecom](https://www.upc.ch/). Fun fact: OPENVPN17 is located in the City of Bern, OPENVPN47 on the countryside — unexpectedly, upload speed is faster outside of town.
