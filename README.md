@@ -29,8 +29,9 @@ Startup scripts to establish Site-to-Site OpenVPNs between (at least) three site
 1. Download this GitHub repository to all three computers
 1. Check Bash scripts for malicious contents
 1. Make Bash scripts executable
-1. Update all .conf and .sh files with the correct LAN addressing of your networks
+1. Update all .conf and .sh files with the correct LAN addressing of your networks (you can adjust the addressing of your tun devices, but you don't need to AFAIK)
 1. Update local (= on UNIFI-CONTROLLER) OpenVPN .conf files with the DynDNS hostnames
+1. Generate static keys. I recommend to generate a static key for *each* VPN tunnel
 1. Update /etc/network/interfaces with post-up scripts (pointing to the correct script in your local repository directory; refer to file etc-network-interfaces in each computer folder)
 1. Set up static routes on your routers
 1. Reboot OPENVPN17 and OPENVPN47, then reboot UNIFI-CONTROLLER
@@ -39,6 +40,8 @@ Startup scripts to establish Site-to-Site OpenVPNs between (at least) three site
 My startup scripts are rather verbose and should be able to be run at any time over and over again (cleaning up before, then starting more or less from scratch). If unsure, you always can run them interactively and check their console output.
 
 Second, always check OpenVPN logs in /var/log/openvpn. In case of failure, you should also try to increase OpenVPN verbosity to at least verb 5 in the local OpenVPN .conf
+
+Check whether ifconfig reports the tun-Devices and whether the counters show any traffic.
 
 # Speed
 TODO
