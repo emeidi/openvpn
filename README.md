@@ -14,7 +14,8 @@ Startup scripts to establish Site-to-Site OpenVPNs between (at least) three site
 | [OpenVPN] Client | UNIFI-CONTROLLER. The Linux computer device at the local site initiating the VPN tunnels to the remote sites |
 | [OpenVPN] Server | OPENVPN17 and OPENVPN47. The Linux computers at remote sites listening on pre-defined UDP ports for incoming packets; OpenVPN endpoints |
 
-# Pre-Requisites for a three site setup
+# Pre-Requisites for a Three Site Setup
+* Your sites use different (non-overlapping) subnets. I recommend to use the private Class A network `10.0.0.0/8` ie. local site `10.0.1.0/24`, remote site one `10.0.17.0/24` and remote site two `10.0.47.0/24`
 * Three computers running Linux
   * I've chosen Debian 8.3 Jessie Stable for all three computers
   * I've bought a used intel NUC Mini-PC which serves as my Linux server within my home LAN
@@ -29,19 +30,22 @@ Startup scripts to establish Site-to-Site OpenVPNs between (at least) three site
 1. Download this GitHub repository to all three computers
 1. Check Bash scripts for malicious contents
 1. Make Bash scripts executable
-1. Update all .conf and .sh files with the correct LAN addressing of your networks (you can adjust the addressing of your tun devices, but you don't need to AFAIK)
+1. Update all `.conf` and `.sh` files with the correct LAN addressing of your networks. You also could adjust the addressing of your `tunX` devices, but you don't necessarily need to
 1. Update local (= on UNIFI-CONTROLLER) OpenVPN .conf files with the DynDNS hostnames of your remote sites (or their static IP addresses)
 1. Generate static keys running `openvpn --genkey --secret static.key`. I recommend to generate a different static key for *each* VPN tunnel. Place them in all three folders of the repository on all three computers.
-1. Update /etc/network/interfaces with post-up scripts (pointing to the correct script in your local repository directory; refer to file etc-network-interfaces in each computer folder)
+1. Update `/etc/network/interfaces` with a parameter `post-up` which points the startup script in your local repository directory. Examples: Please refer to file `etc-network-interfaces` in each computer folder
 1. Set up static routes on your routers
 1. Reboot OPENVPN17 and OPENVPN47, then reboot UNIFI-CONTROLLER
 
 # Troubleshooting
 My startup scripts are rather verbose and should be able to be run at any time over and over again (cleaning up before, then starting more or less from scratch). If unsure, you always can run them interactively and check their console output.
 
-Second, always check OpenVPN logs in /var/log/openvpn. In case of failure, you should also try to increase OpenVPN verbosity to at least verb 5 in the local OpenVPN .conf
+Second, always check OpenVPN logs in `/var/log/openvpn`. In case of failure, you should also try to increase OpenVPN verbosity to at least verb 5 in the local OpenVPN .conf
 
 Check whether ifconfig reports the tun-Devices and whether the counters show any traffic.
 
 # Speed
-TODO
+I've set up an [iperf3](https://iperf.fr) server on UNIFI-CONTROLLER and run hourly speed tests initiated by `iperf3` clients on OPENVPN17 and OPENVPN47. I then move the JSON output to another Linux server in my network, parse the data, import it into [cacti](http://www.cacti.net) and plot the values using this software. As you can see in the images below, a) the throughput is generally steady (don't ask me what happened at 4am on Friday, October 21) and b) the upload speed is visibly capped by [upc cablecom](https://www.upc.ch/).
+
+![Image of OPENVPN17 to UNIFI-CONTROLLER iPerf3](OPENVPN17.CENSORED.png)
+![Image of OPENVPN47 to UNIFI-CONTROLLER iPerf3](OPENVPN47.CENSORED.png)
