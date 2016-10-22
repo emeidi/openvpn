@@ -45,7 +45,7 @@ Second, always check OpenVPN logs in `/var/log/openvpn`. In case of failure, you
 Check whether ifconfig reports the tun-Devices and whether the counters show any traffic.
 
 # Speed
-I've set up an [iperf3](https://iperf.fr) server on UNIFI-CONTROLLER and run hourly speed tests initiated by `iperf3` clients on OPENVPN17 and OPENVPN47. I then move the JSON output to another Linux server in my network, parse the data, import it into [cacti](http://www.cacti.net) and plot the values using this software. As you can see in the images below, a) the throughput is generally steady (don't ask me what happened at 4am on Friday, October 21) and b) the upload speed is visibly capped by [upc cablecom](https://www.upc.ch/).
+I've set up an [iperf3](https://iperf.fr) server on UNIFI-CONTROLLER and run hourly speed tests initiated by `iperf3` clients on OPENVPN17 and OPENVPN47. I then move the JSON output to another Linux server in my network, parse the data, import it into [cacti](http://www.cacti.net) and plot the values using this software. As you can see in the images below, a) the throughput is generally steady (don't ask me what happened at 4am on Friday, October 21) and b) the upload speed is visibly capped by [upc cablecom](https://www.upc.ch/). Fun fact: OPENVPN17 is located in the City of Bern, OPENVPN47 on the countryside — unexpectedly, upload speed is faster outside of town.
 
 ![Image of OPENVPN17 to UNIFI-CONTROLLER iPerf3](OPENVPN17.CENSORED.png)
 ![Image of OPENVPN47 to UNIFI-CONTROLLER iPerf3](OPENVPN47.CENSORED.png)
