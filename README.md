@@ -12,7 +12,7 @@ Startup scripts to establish Site-to-Site OpenVPNs between (at least) three site
 | Local Site | 10.0.1.0/24 |
 | Remote Sites | 10.0.17.0/24 and 10.0.47.0/24 |
 | [OpenVPN] Client | UNIFI-CONTROLLER. The Linux computer device at the local site initiating the VPN tunnels to the remote sites |
-| [OpenVPN] Server | OPENVPN17 and OPENVPN47. The Linux computers at remote sites listening on pre-defined UDP ports for incoming packets |
+| [OpenVPN] Server | OPENVPN17 and OPENVPN47. The Linux computers at remote sites listening on pre-defined UDP ports for incoming packets; OpenVPN endpoints |
 
 # Pre-Requisites for a three site setup
 * Three computers running Linux
